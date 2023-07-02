@@ -1,5 +1,7 @@
 package com.janacode.cruddemo;
 
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,40 +21,21 @@ public class CruddemoApplication {
 		return runner ->{
 			
 
-			//reading the data from database
-			readingStudent(studentDAO);
+			QueryForStudents(studentDAO);
 			
 
 
 		};
 		
 	}
-	private void readingStudent(StudentDAO studentDAO) {
-		//Create a student object
-		System.out.println("Creating new student objects...");
+	private void QueryForStudents(StudentDAO studentDAO) {
 
-		Student tempStudent4= new Student("kiran", "kumar", "kiran34@gmail.com");
+		List<Student> theStudent=studentDAO.findAll();
 
-
-			//save the student
-			System.out.println("saving the student object");
-			studentDAO.save(tempStudent4);
-
-			//display id of the saved student
-			int theID= tempStudent4.getId();
-			System.out.println("saved student. generated id: "+ theID);
-
-			//retrieve student based on the id: primary key
-			System.out.println("reterieving studnet with id: "+ theID);
-			Student myStudent=studentDAO.findById(theID);
-
-			//display student
-			System.out.println("Found the student : "+myStudent);
+		for(Student theResult:theStudent){
+			System.out.println(theResult);
+		}
+		
 	}
 }
-
-
-		
-
-
 
